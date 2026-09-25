@@ -131,6 +131,7 @@ def get_attitude_once(
     camera_ip: str,
     udp_port: int = 5000,
     timeout_sec: float = 2.0,
+    bind_source_port: bool = True,
 ) -> AttitudeSample | None:
     """
     One-shot helper: connects to the camera, sends GAA, waits for the
@@ -144,9 +145,14 @@ def get_attitude_once(
     loop), use AttitudeReader instead - reconnecting and re-sending GAA
     on every call is wasteful.
 
+    bind_source_port: see TPTransport. Leave this True for real hardware
+        (the default). Set False when pointing this at a local/mock
+        camera on the same machine (e.g. in tests) to avoid a source-port
+        collision with the mock's own socket.
+
     Returns None if no GAC packet arrives within timeout_sec.
     """
-    t = TPTransport(camera_ip, udp_port)
+    t = TPTransport(camera_ip, udp_port, bind_source_port=bind_source_port)
     reader = AttitudeReader(t, rate_hz=10)
     reader.start()
     try:

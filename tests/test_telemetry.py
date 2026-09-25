@@ -56,7 +56,12 @@ def test_attitude_reader_tracks_camera_state(mock_camera):
 
 
 def test_get_attitude_once_returns_a_sample(mock_camera):
-    sample = get_attitude_once("127.0.0.1", mock_camera.port, timeout_sec=3.0)
+    # bind_source_port=False: avoids a source-port collision with the
+    # mock camera's own socket (both run on localhost in this test,
+    # unlike real hardware where they're always different machines).
+    sample = get_attitude_once(
+        "127.0.0.1", mock_camera.port, timeout_sec=3.0, bind_source_port=False
+    )
     assert sample is not None
 
 
