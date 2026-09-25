@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skydroid-c12-toolkit"
+version = "0.1.0"
+description = "Reverse-engineered Python SDK for the Skydroid C12 gimbal camera: pan/tilt movement (speed + absolute-angle) and real-time IMU/attitude (yaw/pitch/roll) telemetry over the undocumented #TP UDP protocol."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+authors = [
+    { name = "Samet Cinar" },
+]
+keywords = [
+    "skydroid",
+    "gimbal",
+    "ptz",
+    "drone",
+    "fpv",
+    "imu",
+    "telemetry",
+    "reverse-engineering",
+    "udp",
+    "ardupilot",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Hardware",
+    "Topic :: Multimedia :: Video :: Capture",
+]
+
+# Sadece Python standart kutuphanesini kullanir - harici bagimlilik yok.
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "mypy>=1.0",
+    "ruff>=0.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/CinarSamet/skydroid-c12-toolkit"
+Issues = "https://github.com/CinarSamet/skydroid-c12-toolkit/issues"
+
+[project.scripts]
+skydroid-c12 = "skydroid_c12.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.8"
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
