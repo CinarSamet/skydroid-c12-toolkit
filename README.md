@@ -9,6 +9,12 @@ precise pan/tilt movement and real-time IMU (yaw/pitch/roll) telemetry
 over its undocumented UDP protocol - no official SDK required, because
 there isn't one.
 
+![Terminal command moving the gimbal and streaming live IMU readings](docs/assets/demo.gif)
+
+*A terminal command drives the gimbal to an absolute angle, then to a combined
+pan+tilt target, while the IMU streams the camera's real, live-measured
+attitude back - the same closed-loop confirmation the SDK uses internally.*
+
 ```python
 from skydroid_c12 import Camera
 
